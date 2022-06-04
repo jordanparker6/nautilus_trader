@@ -157,8 +157,13 @@ class BetfairExecutionClient(LiveExecutionClient):
         await self._client.connect()
         self._log.info("BetfairClient login successful.", LogColor.GREEN)
 
+        try:
+            await self.stream.connect()
+        except Exception:
+            self._log.error("Unable to connect to betfair execution socket")
+            raise
+
         aws = [
-            self.stream.connect(),
             self.connection_account_state(),
             self.check_account_currency(),
         ]

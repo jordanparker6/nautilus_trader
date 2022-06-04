@@ -15,7 +15,6 @@
 # -------------------------------------------------------------------------------------------------
 
 import asyncio
-import traceback
 
 from nautilus_trader.adapters.betfair.config import BetfairDataClientConfig
 from nautilus_trader.adapters.betfair.config import BetfairExecClientConfig
@@ -110,17 +109,17 @@ async def main(market_id: str):
     node.add_exec_client_factory("BETFAIR", BetfairLiveExecClientFactory)
     node.build()
 
-    try:
-        node.start()
-    except Exception as ex:
-        print(ex)
-        print(traceback.format_exc())
-    finally:
-        node.dispose()
+    node.start()
+    # try:
+    # except Exception as ex:
+    #     print(ex)
+    #     print(traceback.format_exc())
+    # finally:
+    #     node.dispose()
 
 
 if __name__ == "__main__":
     # Update the market ID with something coming up in `Next Races` from
     # https://www.betfair.com.au/exchange/plus/
     # The market ID will appear in the browser query string.
-    asyncio.run(main(market_id="1.199513161"))
+    asyncio.run(main(market_id="1.199718765"))
