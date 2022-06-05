@@ -92,7 +92,7 @@ class BetfairDataClient(LiveMarketDataClient):
             logger=logger,
         )
 
-        self._client = client
+        self._client: BetfairClient = client
         self._stream = BetfairMarketStreamClient(
             client=self._client,
             logger=logger,
@@ -121,11 +121,7 @@ class BetfairDataClient(LiveMarketDataClient):
 
         # Connect market data socket
         self._log.info("BetfairClient connecting to socket")
-        try:
-            await self._stream.connect()
-        except Exception:
-            self._log.error("Unable to connect to Betfair data socket")
-            raise
+        await self._stream.connect()
 
         # Pass any preloaded instruments into the engine
         if self._instrument_provider.count == 0:
@@ -158,7 +154,7 @@ class BetfairDataClient(LiveMarketDataClient):
 
         # Ensure client closed
         self._log.info("Closing BetfairClient...")
-        self._client.client_logout()
+        await self._client.disconnect()
 
         self._set_connected(False)
         self._log.info("Disconnected.")

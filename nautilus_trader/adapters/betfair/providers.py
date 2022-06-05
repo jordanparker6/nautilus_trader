@@ -79,6 +79,7 @@ class BetfairInstrumentProvider(InstrumentProvider):
         return instance
 
     async def load_all_async(self, market_filter=None):
+        assert self._client is not None, "CLIENT IS NONE"
         currency = await self.get_account_currency()
         market_filter = market_filter or self._filters
 

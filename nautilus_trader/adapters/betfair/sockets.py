@@ -24,8 +24,8 @@ from nautilus_trader.common.logging import LoggerAdapter
 from nautilus_trader.network.socket import SocketClient
 
 
-HOST = "stream-api.betfair.com"
-# HOST = "stream-api-integration.betfair.com"
+# HOST = "stream-api.betfair.com"
+HOST = "stream-api-integration.betfair.com"
 PORT = 443
 CRLF = b"\r\n"
 ENCODING = "utf-8"
